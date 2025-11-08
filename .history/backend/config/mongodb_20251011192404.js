@@ -1,0 +1,1 @@
+MONGODB_URI = 'mongodb+srv://amolsh249_db_user:<db_password>@cluster0.pljgaze.mongodb.net'

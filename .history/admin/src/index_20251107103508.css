@@ -1,0 +1,21 @@
+@import "tailwindcss";
+@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@100..900&display=swap');
+
+/* * {
+  font-family: "Outfit", sans-serif;
+} */
+
+/* ✅ Define theme variables using @theme */
+@theme {
+  --color-primary: #5F6FFF;
+}
+
+/* ❌ @apply doesn't work inside pseudo-elements */
+/* ✅ Use plain CSS to hide scrollbars */
+::-webkit-scrollbar {
+  display: none;
+}
+
+html {
+  scrollbar-width: none; /* for Firefox */
+}

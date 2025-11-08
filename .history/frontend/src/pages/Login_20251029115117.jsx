@@ -1,0 +1,123 @@
+import React, { useState, useContext } from "react";
+import { AppContext } from "../context/AppContext";
+import axios from "axios";
+import { toast } from "react-toastify";
+
+const Login = () => {
+  const { backendUrl, setToken } = useContext(AppContext);
+
+  const [mode, setMode] = useState("signup"); // 'signup' | 'login'
+
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [name, setName] = useState("");
+
+  const onSubmitHandler = async (e) => {
+    e.preventDefault();
+    try {
+      if (mode === "signup") {
+        const { data } = await axios.post(`${backendUrl}/api/user/register`, {
+          name,
+          password,
+          email,
+        });
+        if (data.success) {
+          localStorage.setItem("token", data.token);
+          setToken(data.token);
+        } else {
+          toast.error(data.message);
+        }
+      } else {
+        const { data } = await axios.post(`${backendUrl}/api/user/login`, {
+          password,
+          email,
+        });
+        if (data.success) {
+          localStorage.setItem("token", data.token);
+          setToken(data.token);
+        } else {
+          toast.error(data.message);
+        }
+      }
+    } catch (error) {
+      toast.error(error?.message || "Something went wrong");
+    }
+  };
+
+  return (
+    <form onSubmit={onSubmitHandler} className="min-h-[80vh] flex items-center">
+      <div className="flex flex-col gap-3 m-auto items-start p-8 min-w-[340px] sm:min-w-96 border border-gray-300 rounded-xl text-zinc-600 text-sm shadow-lg">
+        <p className="text-2xl font-semibold">
+          {mode === "signup" ? "Create Account" : "Login"}
+        </p>
+        <p>
+          Please {mode === "signup" ? "sign up" : "log in"} to book appointment
+        </p>
+        {mode === "signup" && (
+          <div className="w-full">
+            <p>Full Name</p>
+            <input
+              className="border border-zinc-300 rounded w-full p-2 mt-1"
+              type="text"
+              value={name}
+              onChange={(e) => setName(e.target.value)}
+              placeholder="Enter your full name"
+              required
+            />
+          </div>
+        )}
+        <div className="w-full">
+          <p>Email</p>
+          <input
+            className="border border-zinc-300 rounded w-full p-2 mt-1"
+            type="email"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+            placeholder="Enter your Email"
+            required
+          />
+        </div>
+        <div className="w-full">
+          <p>Password</p>
+          <input
+            className="border border-zinc-300 rounded w-full p-2 mt-1"
+            type="password"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+            placeholder="Enter your Password"
+            required
+          />
+        </div>
+        <button
+          type="submit"
+          className="bg-primary text-white w-full py-2 rounded-md text-base"
+        >
+          {mode === "signup" ? "Create Account" : "Login"}
+        </button>
+        {mode === "signup" ? (
+          <p>
+            Already have an account?{" "}
+            <span
+              onClick={() => setMode("login")}
+              className="text-primary underline cursor-pointer"
+            >
+              Login here
+            </span>
+          </p>
+        ) : (
+          <p>
+            Create a new account?{" "}
+            <span
+              onClick={() => setMode("signup")}
+              className="text-primary underline cursor-pointer"
+            >
+              click here
+            </span>
+          </p>
+        )}
+      </div>
+    </form>
+  );
+};
+
+export default Login;
