@@ -15,13 +15,13 @@ const Footer = () => {
         <div>
             <p className="text-xl font-medium mb-5">COMPANY</p>
             <ul className="flex flex-col gap-2 text-gray-600">
-              <Link to='/' onClick={()=>scrollTo(0,0)}>
+              <Link to='/' onClick={()=>window.scrollTo(0,0)}>
                 <li>Home</li>
               </Link>
-              <Link to='/about' onClick={()=>scrollTo(0,0)}>
+              <Link to='/about' onClick={()=>window.scrollTo(0,0)}>
                 <li>About us</li>
               </Link>
-              <Link to='/contact' onClick={()=>scrollTo(0,0)}>
+              <Link to='/contact' onClick={()=>window.scrollTo(0,0)}>
                 <li>Contact us</li>
               </Link>
             </ul>
