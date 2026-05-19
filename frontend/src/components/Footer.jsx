@@ -1,6 +1,6 @@
 import React from "react";
 import { assets } from "../assets/assets";
-import { NavLink, useNavigate } from 'react-router-dom'
+import { NavLink } from 'react-router-dom'
 
 const Footer = () => {
   return (
