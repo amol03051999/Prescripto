@@ -1,21 +1,24 @@
 import React from "react";
 import { assets } from "../assets/assets";
-import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 const Footer = () => {
 
-  const handleScrollTop = () => {
-    setTimeout(() => {
-      window.scrollTo({
-        top: 0,
-        left: 0,
-        behavior: "smooth",
-      });
-    }, 0);
+  const navigate = useNavigate();
+
+  const handleNavigation = (path) => {
+    navigate(path);
+
+    window.scrollTo({
+      top: 0,
+      left: 0,
+      behavior: "smooth",
+    });
   };
 
   return (
     <div className="md:mx-10">
+
       <div className="flex flex-col sm:grid sm:grid-cols-[3fr_1fr_1fr] gap-14 my-10 mt-40 text-sm">
 
         {/* left section */}
@@ -24,8 +27,7 @@ const Footer = () => {
 
           <p className="w-full md:w-2/3 text-gray-600 leading-6">
             Lorem Ipsum is simply dummy text of the printing and
-            typesetting industry. Lorem Ipsum has been the industry's
-            standard dummy text ever since the 1500s.
+            typesetting industry.
           </p>
         </div>
 
@@ -35,22 +37,25 @@ const Footer = () => {
 
           <ul className="flex flex-col gap-2 text-gray-600">
 
-            <li>
-              <Link to="/" onClick={handleScrollTop}>
-                Home
-              </Link>
+            <li
+              className="cursor-pointer"
+              onClick={() => handleNavigation("/")}
+            >
+              Home
             </li>
 
-            <li>
-              <Link to="/about" onClick={handleScrollTop}>
-                About us
-              </Link>
+            <li
+              className="cursor-pointer"
+              onClick={() => handleNavigation("/about")}
+            >
+              About us
             </li>
 
-            <li>
-              <Link to="/contact" onClick={handleScrollTop}>
-                Contact us
-              </Link>
+            <li
+              className="cursor-pointer"
+              onClick={() => handleNavigation("/contact")}
+            >
+              Contact us
             </li>
 
           </ul>
@@ -68,7 +73,6 @@ const Footer = () => {
 
       </div>
 
-      {/* copyright section */}
       <div>
         <hr />
 
@@ -76,6 +80,7 @@ const Footer = () => {
           Copyright 2025 @ Prescripto - All Rights Reserved.
         </p>
       </div>
+
     </div>
   );
 };
